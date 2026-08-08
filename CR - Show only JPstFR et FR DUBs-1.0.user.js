@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         CR - Show only JPstFR et FR DUBs
-// @namespace    https://greasyfork.org/users/1060113 (original)
+// @namespace    
 // @version      1.0
 // @description  Show only JPstFR et FR dubs in CR calendar
 // @author       Hato4PL
@@ -12,6 +12,8 @@
 // @downloadURL https://update.greasyfork.org/scripts/585399/CR%20-%20Show%20only%20ENG%20DUBs.user.js
 // @updateURL
 // ==/UserScript==
+
+/* global $ */
 
 (function() {
     'use strict';
@@ -54,6 +56,22 @@
         height: 20px;
     }
     `;
+//     //désactivation hover
+//     GM_addStyle(`
+//         [class="release js-release "]:hover {
+//             background-color: unset !important;
+//             color: unset !important;
+//             transform: none !important;
+//             opacity: 1 !important;
+//             transition: none !important;
+//         }
+//     `);
+
+
+    $('.availability').attr('style', 'display: flex !important; justify-content: space-between !important; align-items: center !important;');
+    $('.available-episode-link.js-episode-link-available').attr('style', 'max-width: 60% !important; flex-basis: 60% !important;');
+
+
 
     document.head.append(style);
 
@@ -68,6 +86,7 @@
 
     const observer = new MutationObserver(() => {
         if (!filtersInitialized) {
+            //disableHover();
             initFilters();
         } else {
             clearTimeout(filterTimeout);
@@ -128,6 +147,7 @@
             //On vérifie si les bubs sont les bons
             const titleElement = li.querySelector('.season-name');
             const linkElement = li.querySelector('.available-episode-link');
+
 
             if (!titleElement || !linkElement) {
                 return;
@@ -206,7 +226,7 @@
             return;
         }
 
-        cible.style ="display:flex"
+        //cible.style ="display:flex"
 
         if (cible.querySelector(".tm-resume-button")) {
             return;
@@ -233,11 +253,21 @@
         //cible.parentElement.append(ancre);
         cible.append(ancre);
 
+        //On regarde si le dernier épisode est vu
+        const feature = liSource.querySelector('.episode-info.js-episode-info');
 
-        // URL de la requête Crunchyroll
+        let percent = 0;
+
+        if (feature) {
+            const proBar = feature.querySelector('.progress-bar')
+            if (proBar) {
+                percent = proBar.parentElement.getAttribute('value')
+            }
+        }
+        // URL de la requête Crunchyroll (exepté si le dernier épisode à été vu)
         const popoverUrl = article.dataset.popoverUrl;
 
-        if (!popoverUrl) {
+        if (!popoverUrl || (percent > 70)) {
             return;
         }
 
