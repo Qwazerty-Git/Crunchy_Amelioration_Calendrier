@@ -10,6 +10,7 @@
 // @grant        none
 // @run-at       document-body
 // @downloadURL  https://github.com/Qwazerty-Git/Crunchy_Amelioration_Calendrier/tree/main
+// @license      MIT
 // @updateURL
 // ==/UserScript==
 
@@ -130,6 +131,9 @@
         };
 
         parent.append(...Object.values(filters).map(filter => filter.label));
+
+        parent.style.display = "flex";
+        parent.style.width = "500px";
 
         applyFilters();
     }
