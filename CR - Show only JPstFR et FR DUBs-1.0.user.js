@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         CR - Show only JPstFR et FR DUBs
-// @namespace    https://greasyfork.org/users/1060113 (original)
+// @namespace    https://greasyfork.org/fr/users/1634721-qwazerty-git
 // @version      1.0
 // @description  Show only JPstFR et FR dubs in CR calendar
 // @author       Hato4PL
@@ -9,7 +9,7 @@
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=crunchyroll.com
 // @grant        none
 // @run-at       document-body
-// @downloadURL https://update.greasyfork.org/scripts/585399/CR%20-%20Show%20only%20ENG%20DUBs.user.js
+// @downloadURL  https://github.com/Qwazerty-Git/Crunchy_Amelioration_Calendrier/tree/main
 // @updateURL
 // ==/UserScript==
 
