@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         CR - Show only JPstFR et FR DUBs
-// @namespace    
+// @namespace    https://greasyfork.org/users/1060113 (original)
 // @version      1.0
 // @description  Show only JPstFR et FR dubs in CR calendar
 // @author       Hato4PL
@@ -36,7 +36,8 @@
 
     const defaultFilters = {
         followed: true,
-        french: true
+        french: true,
+        avant_prem: true
     };
 
     const style = document.createElement("style");
@@ -125,6 +126,7 @@
         filters = {
             followed: createCheckbox("tm-followed-only", "Séries Suivies", defaultFilters.followed),
             french: createCheckbox("tm-french-only", "FR / VOSTFR", defaultFilters.french),
+            avant_prem: createCheckbox("tm-avant-premiere", "Avant Première", defaultFilters.avant_prem),
         };
 
         parent.append(...Object.values(filters).map(filter => filter.label));
@@ -142,6 +144,7 @@
 
         const isFollowedOnly = filters.followed.checked;
         const isFrenchFilterActive = filters.french.checked;
+        const isAvantPremiere = filters.avant_prem.checked;
 
         document.querySelectorAll('.releases li').forEach(li => {
             //On vérifie si les bubs sont les bons
@@ -161,11 +164,13 @@
 
             //On vérifie si la série est suivie
             const isFollowed = li.querySelector(".queue-flag.queued") !== null;
+            const isAVP = li.querySelector(".premiere-flag") !== null;
 
-            const showByLanguage = goodDubs || !isFrenchFilterActive;
+            const showByLanguage = !isFrenchFilterActive || goodDubs;
             const showByFollow = !isFollowedOnly || isFollowed;
+            const showAVP = !isAvantPremiere || isAVP
 
-            if (showByLanguage && showByFollow) {
+            if ((showByLanguage && showByFollow) || (showByLanguage && showAVP)) {
                 li.style.display = '';
                 createBtnResume(li);
             } else {
