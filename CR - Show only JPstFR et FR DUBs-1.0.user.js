@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         CR - Show only JPstFR et FR DUBs
+// @name         Crunchyroll - Show only JPstFR et FR DUBs
 // @namespace    https://greasyfork.org/fr/users/1634721-qwazerty-git
-// @version      1.0
+// @version      1.1
 // @description  Show only JPstFR et FR dubs in CR calendar
 // @author       Hato4PL
 // @match        https://www.crunchyroll.com/simulcastcalendar*
